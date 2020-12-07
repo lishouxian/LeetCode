@@ -63,25 +63,30 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
+
     def isMatch(self, s: str, p: str) -> bool:
-        if not p: return not s
-        res = [[False for _ in range(len(p) + 1)] for _ in range(len(s) + 1)]
-        res[-1][-1] = True
-        for i in range(-1, len(s)):
-            for j in range(len(p)):
-                if p[j] == '*':
-                    if res[i][j - 1] or res[i][j - 2] or ( i > -1 and
-                            res[i - 1][j] and s[i] == s[i - 1] and (s[i] == p[j - 1]) or p[j - 1] == '.'):
-                        res[i][j] = True
-                        continue
-                    temp = p[j - 1]
+        m, n = len(s), len(p)
+
+        def matches(i: int, j: int) -> bool:
+            if i == 0:
+                return False
+            if p[j - 1] == '.':
+                return True
+            return s[i - 1] == p[j - 1]
+
+        f = [[False] * (n + 1) for _ in range(m + 1)]
+        f[0][0] = True
+        for i in range(m + 1):
+            for j in range(1, n + 1):
+                if p[j - 1] == '*':
+                    f[i][j] |= f[i][j - 2]
+                    if matches(i, j - 1):
+                        f[i][j] |= f[i - 1][j]
                 else:
-                    temp = p[j]
-                if temp == '.':
-                    res[i][j] = i > -1 and  res[i - 1][j - 1]
-                else:
-                    res[i][j] = i > -1 and res[i - 1][j - 1] and temp == s[i]
-        return res[len(s)-1][-2]
+                    if matches(i, j):
+                        f[i][j] |= f[i - 1][j - 1]
+        return f[m][n]
+
         # leetcode submit region end(Prohibit modification and deletion)
 
 
