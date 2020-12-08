@@ -31,10 +31,9 @@ class Solution:
 
         @lru_cache(None)
         def jump(i):
-            if nums[i] == jump[i]:
-                return i
-            nums[i] = jump[nums[i]]
-            return nums[i]
+            nums[i] = -nums[i]
+
+            return max(jump[i],i)
         return jump(0)
         # leetcode submit region end(Prohibit modification and deletion)
 
