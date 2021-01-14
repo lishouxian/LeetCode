@@ -25,10 +25,11 @@ class Solution:
         l, r = 0, len(numbers)-1
         while l < r:
             mid = (l + r) //2
+            if numbers[mid] == numbers[0] : return mid
             if numbers[mid] > numbers[0]:
-                l = mid
+                l = mid+1
             else:
-                r = mid
+                r = mid-1
         return numbers[l]
 
 

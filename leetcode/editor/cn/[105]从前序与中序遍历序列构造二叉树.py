@@ -19,13 +19,15 @@
 #  👍 784 👎 0
 
 
-# leetcode submit region begin(Prohibit modification and deletion)
-# Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
         self.val = x
         self.left = None
         self.right = None
+
+# leetcode submit region begin(Prohibit modification and deletion)
+# Definition for a binary tree node.
+
 
 
 class Solution:
